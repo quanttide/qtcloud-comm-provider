@@ -68,22 +68,16 @@ else:
 # ----- QuantTide settings -----
 # 量潮代码风格：基于量潮工程规范的具体配置放在前面，方便后面使用。
 
-# 验证码相关
-# 验证码缓存的Django缓存表
-VCODE_CACHE_TABLE = 'vcode'
-# 验证码长度
-VCODE_LENGTH = 6
-
 
 # ----- WeChat and QCloud settings -----
 # 量潮代码风格：微信和腾讯云密钥等配置放在前面，方便后面使用。
 
 # 腾讯云访问密钥
-QCLOUD_SECRET_ID = os.environ['CLOUD_API_SECRET_ID']
-QCLOUD_SECRET_KEY = os.environ['CLOUD_API_SECRET_KEY']
+# QCLOUD_SECRET_ID = os.environ['CLOUD_API_SECRET_ID']
+# QCLOUD_SECRET_KEY = os.environ['CLOUD_API_SECRET_KEY']
 
 # 默认区域为上海
-QCLOUD_PROJECT_REGION = 'ap-shanghai'
+# QCLOUD_PROJECT_REGION = 'ap-shanghai'
 
 
 # ----- Django default settings -----
@@ -148,20 +142,14 @@ if DEBUG:
     CACHES = {
         'default': {
             'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
-            'LOCATION': os.path.join(BASE_DIR, 'caches/default'), },
-        VCODE_CACHE_TABLE: {
-            'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
-            'LOCATION': os.path.join(BASE_DIR, 'caches/'+VCODE_CACHE_TABLE),
+            'LOCATION': os.path.join(BASE_DIR, 'caches/default'),
         },
     }
 else:
     CACHES = {
         'default': {
             'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
-            'LOCATION': os.path.join(BASE_DIR, 'caches/default'), },
-        VCODE_CACHE_TABLE: {
-            'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
-            'LOCATION': os.path.join(BASE_DIR, 'caches/'+VCODE_CACHE_TABLE),
+            'LOCATION': os.path.join(BASE_DIR, 'caches/default'),
         },
     }
     """
