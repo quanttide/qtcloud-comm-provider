@@ -1,0 +1,115 @@
+default:
+  # --- Django ---
+  # https://docs.djangoproject.com/en/4.0/ref/settings/
+  ROOT_URLCONF: qtpay.urls
+  WSGI_APPLICATION: qtpay.wsgi.application
+  ALLOWED_HOSTS:
+    - '*'
+  INTERNAL_IPS:
+    - '127.0.0.1'
+    - 'localhost'
+  INSTALLED_APPS:
+    # 官方
+    - django.contrib.contenttypes
+    - django.contrib.staticfiles
+    # 第三方
+    - rest_framework
+    - corsheaders  # CORS策略
+    - djversion  # Git版本
+    - drf_remote_auth  # 微服务鉴权
+    - drf_admin  # 管理后台
+    # 自建
+    - products
+    - orders
+  MIDDLEWARE:
+    # https://docs.djangoproject.com/en/4.0/ref/middleware/#middleware-ordering
+    - django.middleware.security.SecurityMiddleware
+    - django.middleware.cache.UpdateCacheMiddleware
+    # https://pypi.org/project/django-cors-headers/
+    - corsheaders.middleware.CorsMiddleware
+    - django.middleware.common.CommonMiddleware
+    - django.middleware.csrf.CsrfViewMiddleware
+    - django.middleware.cache.FetchFromCacheMiddleware
+  CACHES:
+    default:
+      BACKEND: django.core.cache.backends.db.DatabaseCache
+      LOCATION: django_cache
+  AUTH_USER_MODEL: drf_remote_auth.AuthUser
+  TEMPLATES:
+    - BACKEND: django.template.backends.django.DjangoTemplates
+      APP_DIRS: True
+  STATIC_URL: /static/
+  LANGUAGE_CODE: zh-Hans
+  USE_I18N: true
+  USE_L10N: true
+  USE_TZ: false
+  TIME_ZONE: Asia/Shanghai
+
+  # --- REST Framework ---
+  # https://www.django-rest-framework.org/api-guide/settings/
+  REST_FRAMEWORK:
+    DEFAULT_AUTHENTICATION_CLASSES:
+      # TODO: 引入drf-remote-auth的Authentication class
+      - rest_framework.authentication.TokenAuthentication
+    DEFAULT_PERMISSION_CLASSES:
+      - rest_framework.permissions.AllowAny
+    DEFAULT_RENDERER_CLASSES:
+      - rest_framework.renderers.JSONRenderer
+      - rest_framework.renderers.BrowsableAPIRenderer
+      - rest_framework.renderers.AdminRenderer
+    DEFAULT_PARSER_CLASSES:
+      - rest_framework.parsers.JSONParser
+    UNAUTHENTICATED_USER:
+    TEST_REQUEST_DEFAULT_FORMAT: json
+    TEST_REQUEST_RENDERER_CLASSES:
+      - rest_framework.renderers.JSONRenderer
+
+  # --- Django CORS ---
+  CORS_ALLOW_ALL_ORIGINS: True
+
+  # --- drf-admin ---
+  DRF_ADMIN:
+    DEFAULT_ADMIN_PERMISSION_CLASSES:
+      # TODO: 接入鉴权系统以后改回默认值`IsAuthenticated`
+      - rest_framework.permissions.AllowAny
+
+  # --- djversion ---
+  DJVERSION_GIT_REPO_PATH: BASE_DIR
+  DJVERSION_GIT_USE_TAG: True
+
+# ----- 开发环境 -----
+development:
+  DEBUG: true
+  DATABASES:
+    default:
+      ENGINE: django.db.backends.sqlite3
+      NAME: db.sqlite3
+  CACHE_MIDDLEWARE_SECONDS: 0  # 关闭pre-view缓存
+  # OpenAPI文档路径
+  OPENAPI_DOC_PATH: api/_build/openapi.yml
+
+# ----- 测试环境 -----
+testing:
+  DEBUG: false
+  DATABASES:
+    default:
+      ENGINE: django.db.backends.mysql
+      HOST:
+      PORT: 3306
+      USER: qtpay
+      PASSWORD:
+      NAME: qtpay
+  CACHE_MIDDLEWARE_SECONDS: 0  # 关闭pre-view缓存
+
+# ----- 生产环境 -----
+production:
+  DEBUG: false
+  DATABASES:
+    default:
+      ENGINE: django.db.backends.mysql
+      HOST:
+      PORT: 3306
+      USER: qtpay
+      PASSWORD:
+      NAME: qtpay
+  CACHE_MIDDLEWARE_SECONDS: 600  # pre-view缓存时长为10分钟

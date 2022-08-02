@@ -1,4 +1,4 @@
-Django==3.0.7
-djangorestframework==3.12.2
-gunicorn==20.1.0
-django-environ==0.4.5
+--extra-index-url=https://quanttide-pypi.pkg.coding.net/qtopen-django/drf-remote-auth/simple
+drf-remote-auth==0.1.0
+--extra-index-url=https://quanttide-pypi.pkg.coding.net/qtopen-django/drf-admin/simple
+drf-admin==0.2.0
