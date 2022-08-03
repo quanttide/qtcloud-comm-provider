@@ -5,7 +5,6 @@
 import uuid
 
 from django.db import models
-import reversion
 
 # from products.models.producer import Producer
 
@@ -19,7 +18,6 @@ class ProductTypeChoices(models.TextChoices):
     bundle = 'bundle', '商品组合'
 
 
-@reversion.register(fields=['price'])
 class Product(models.Model):
     """
     商品（也称产品）
