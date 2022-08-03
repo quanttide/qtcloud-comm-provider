@@ -18,6 +18,7 @@ default:
     - djversion  # Git版本
     - drf_remote_auth  # 微服务鉴权
     - drf_admin  # 管理后台
+    - reversion # 数据模型版本管理
     # 自建
     - products
     - orders
