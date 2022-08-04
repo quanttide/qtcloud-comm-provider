@@ -46,7 +46,7 @@ class Price(models.Model):
     """
     id = models.UUIDField(primary_key=True, editable=False, default=uuid.uuid4)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='创建时间')
-    product = models.ForeignKey(Product, related_name='price', on_delete=models.CASCADE, verbose_name='课程')
+    product = models.ForeignKey(Product, related_name='price_models', on_delete=models.CASCADE, verbose_name='课程')
     # 两位小数，最大值为99,999,999.99。
     # Note: 可使用django-money(https://github.com/django-money/django-money)升级。
     price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='价格')

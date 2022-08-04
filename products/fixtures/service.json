@@ -1,0 +1,38 @@
+[{
+  "model": "products.producer",
+  "pk": "033cb347-a247-498d-8220-198498364c05",
+  "fields": {
+    "name": "qtclass",
+    "type": "service_provider",
+    "created_at": "2022-08-04T16:16:19"
+  }
+}, {
+  "model": "products.product",
+  "pk": "ec375aa1-a0a1-4ed4-bb16-4faf1946e586",
+  "fields": {
+    "name": "python",
+    "verbose_name": "Python课程",
+    "created_at": "2022-08-04T16:16:19",
+    "updated_at": "2022-08-04T16:16:19",
+    "type": "service",
+    "producer": "033cb347-a247-498d-8220-198498364c05",
+    "is_active": true,
+    "is_gift": false
+  }
+}, {
+  "model": "products.price",
+  "pk": "1f84d2bd-ce70-4fee-8df7-4549fe2bb2c9",
+  "fields": {
+    "created_at": "2022-08-04T16:16:39",
+    "product": "ec375aa1-a0a1-4ed4-bb16-4faf1946e586",
+    "price": "0.10"
+  }
+}, {
+  "model": "products.price",
+  "pk": "d1b38030-87d9-43af-810f-758082ed53dd",
+  "fields": {
+    "created_at": "2022-08-04T16:16:42",
+    "product": "ec375aa1-a0a1-4ed4-bb16-4faf1946e586",
+    "price": "0.20"
+  }
+}]

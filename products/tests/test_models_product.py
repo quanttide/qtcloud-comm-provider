@@ -17,6 +17,6 @@ class PriceTestCase(TestCase):
         price1 = Price.objects.create(product=product, price=0.1)
         price2 = Price.objects.create(product=product, price=0.2)
 
-    def test_get_latest_price(self):
+    def test_get_current_price(self):
         price = Price.objects.latest()
         self.assertEqual(0.2, float(price.price))
