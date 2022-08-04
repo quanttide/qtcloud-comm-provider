@@ -7,7 +7,7 @@ from products.serializers.base import ProductSerializer
 
 
 class ProductSerializerTestCase(TestCase):
-    fixtures = ['service.json']
+    fixtures = ['services.json']
     serializer_class = ProductSerializer
     model_class = serializer_class.Meta.model
 

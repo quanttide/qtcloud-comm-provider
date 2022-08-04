@@ -6,14 +6,16 @@ from products.views.admin import ProductAdminViewSet
 
 
 class ProductAdminViewSetTestCase(TestCase):
-    fixtures = ['service.json']
+    fixtures = ['services.json']
 
     def setUp(self):
         self.factory = APIRequestFactory()
-        self.object = Product.objects.get(name='python')
 
     def test_destroy(self):
+        product = Product.objects.get(name='python')
         request = self.factory.delete("/")
         product_delete_view = ProductAdminViewSet.as_view({'delete': 'destroy'})
-        product_delete_view(request, pk=self.object.pk)
-        self.assertFalse(self.object.is_active)
+        product_delete_view(request, pk=product.pk)
+        # Note: 不知道为什么，这里必须要重新查询一次。曾经正常过，其他地方也不需要重新查询。原因未知。
+        product = Product.objects.get(name='python')
+        self.assertFalse(product.is_active)
