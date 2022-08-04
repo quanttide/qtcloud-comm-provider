@@ -36,6 +36,9 @@ class Product(models.Model):
         verbose_name = '商品'
         ordering = ['updated_at']
 
+    def __str__(self):
+        return f"Product(id='{self.id}', name='{self.name}', verbose_name='{self.verbose_name}')"
+
 
 class Price(models.Model):
     """

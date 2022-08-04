@@ -49,8 +49,15 @@ class ProductSerializer(serializers.ModelSerializer):
 
     def update(self, instance, validated_data):
         # 如果价格变化，更新价格
-        current_price = Price.objects.filter(product=instance).latest().price
-        if current_price != validated_data['price']:
-            Price.objects.create(product=instance, price=validated_data['price'])
+        if 'price' in validated_data:
+            current_price = Price.objects.filter(product=instance).latest().price
+            if current_price != validated_data['price']:
+                Price.objects.create(product=instance, price=validated_data['price'])
         # 正常更新
         return super().update(instance, validated_data)
+
+    def delete(self):
+        """
+        自定义方法。标记is_active=False代替真实删除
+        """
+        return self.update(self.instance, {'is_active': False})

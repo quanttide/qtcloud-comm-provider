@@ -53,3 +53,8 @@ class ProductSerializerTestCase(TestCase):
         # 验证价格更新
         price = Price.objects.filter(product=serializer.instance).latest().price
         self.assertEqual(0.3, float(price))
+
+    def test_delete(self):
+        serializer = ProductSerializer(instance=self.product)
+        serializer.delete()
+        self.assertFalse(self.product.is_active)
