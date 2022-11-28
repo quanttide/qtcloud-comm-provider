@@ -15,9 +15,7 @@ default:
     # 第三方
     - rest_framework
     - corsheaders  # CORS策略
-    - djversion  # Git版本
-    - drf_remote_auth  # 微服务鉴权
-    - drf_admin  # 管理后台
+    - djmoney
     # 自建
     - products
     - orders
