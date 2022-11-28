@@ -1,6 +1,6 @@
 # ----- 拉取环境 -----
-# 自制Django-MySQL版镜像
-FROM quanttide-docker.pkg.coding.net/qtopen-django/django-with-mysql/django-with-mysql:latest
+# 拉取基础镜像
+FROM quanttide-docker.pkg.coding.net/qtopen-django/django-with-postgresql/django-with-postgresql:latest
 
 
 # ----- 复制文件到镜像 -----
@@ -26,5 +26,5 @@ EXPOSE 8000
 
 # 运行manage.py命令
 CMD python3 manage.py migrate \
-    && python3 manage.py createcachetable \
+    && python3 manage.py update_initial_data --app=tenants \
     && exec gunicorn qtcloud_payments.wsgi:application --bind 0.0.0.0:8000

@@ -14,6 +14,9 @@ class Producer(models.Model):
     type = models.CharField(max_length=16, choices=ProducerTypeChoices.choices, verbose_name='生产者类型')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='创建时间')
 
+    class Meta:
+        verbose_name = '生产者'
+
 
 # class GoodsProducerProfile(models.Model):
 #     """

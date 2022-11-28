@@ -1,6 +1,8 @@
 default:
   # --- Django ---
   # https://docs.djangoproject.com/en/4.0/ref/settings/
+  DEBUG: false
+  SECRET_KEY:
   ROOT_URLCONF: qtcloud_payments.urls
   WSGI_APPLICATION: qtcloud_payments.wsgi.application
   ALLOWED_HOSTS:
@@ -15,12 +17,17 @@ default:
     # 第三方
     - rest_framework
     - corsheaders  # CORS策略
+    - django_tenants
+    - dynamic_initial_data
     - djmoney
     # 自建
+    - tenants
     - products
     - orders
+    - wallets
   MIDDLEWARE:
     # https://docs.djangoproject.com/en/4.0/ref/middleware/#middleware-ordering
+    - django_tenants.middleware.main.TenantMainMiddleware
     - django.middleware.security.SecurityMiddleware
     - django.middleware.cache.UpdateCacheMiddleware
     # https://pypi.org/project/django-cors-headers/
@@ -28,11 +35,20 @@ default:
     - django.middleware.common.CommonMiddleware
     - django.middleware.csrf.CsrfViewMiddleware
     - django.middleware.cache.FetchFromCacheMiddleware
+  DATABASES:
+    default:
+      ENGINE: django_tenants.postgresql_backend
+      HOST:
+      PORT: 5432
+      USER: qtcloud_payments
+      PASSWORD:
+      NAME: qtcloud_payments
+  DATABASE_ROUTERS:
+    - django_tenants.routers.TenantSyncRouter
   CACHES:
     default:
-      BACKEND: django.core.cache.backends.db.DatabaseCache
-      LOCATION: django_cache
-  AUTH_USER_MODEL: drf_remote_auth.AuthUser
+      BACKEND: django.core.cache.backends.redis.RedisCache
+      LOCATION:
   TEMPLATES:
     - BACKEND: django.template.backends.django.DjangoTemplates
       APP_DIRS: True
@@ -42,6 +58,7 @@ default:
   USE_L10N: true
   USE_TZ: false
   TIME_ZONE: Asia/Shanghai
+  DEFAULT_AUTO_FIELD: django.db.models.BigAutoField
 
   # --- REST Framework ---
   # https://www.django-rest-framework.org/api-guide/settings/
@@ -75,37 +92,37 @@ default:
   DJVERSION_GIT_REPO_PATH: BASE_DIR
   DJVERSION_GIT_USE_TAG: True
 
+  # --- django-tenants ---
+  TENANT_MODEL: tenants.Tenant
+  TENANT_DOMAIN_MODEL: tenants.TenantDomain
+  SHARED_APPS:
+    # 官方
+    - django.contrib.contenttypes
+    - django.contrib.staticfiles
+    # 第三方
+    - rest_framework
+    - corsheaders  # CORS策略
+    - django_tenants
+    - dynamic_initial_data
+    - djmoney
+    # 自建
+    - tenants
+  # tenant-specific apps
+  TENANT_APPS:
+    # 自建
+    - products
+    - orders
+    - wallets
+
 # ----- 开发环境 -----
 development:
   DEBUG: true
-  DATABASES:
-    default:
-      ENGINE: django.db.backends.sqlite3
-      NAME: db.sqlite3
   CACHE_MIDDLEWARE_SECONDS: 0  # 关闭pre-view缓存
 
 # ----- 测试环境 -----
 testing:
-  DEBUG: false
-  DATABASES:
-    default:
-      ENGINE: django.db.backends.mysql
-      HOST:
-      PORT: 3306
-      USER: qtcloud_payments
-      PASSWORD:
-      NAME: qtcloud_payments
   CACHE_MIDDLEWARE_SECONDS: 0  # 关闭pre-view缓存
 
 # ----- 生产环境 -----
 production:
-  DEBUG: false
-  DATABASES:
-    default:
-      ENGINE: django.db.backends.mysql
-      HOST:
-      PORT: 3306
-      USER: qtcloud_payments
-      PASSWORD:
-      NAME: qtcloud_payments
   CACHE_MIDDLEWARE_SECONDS: 600  # pre-view缓存时长为10分钟

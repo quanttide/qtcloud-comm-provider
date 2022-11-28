@@ -1,4 +1,5 @@
-from django.test import TestCase
+from django_tenants.test.cases import TenantTestCase as TestCase
+
 from rest_framework.test import APIRequestFactory
 
 from products.models.product import Product
@@ -7,6 +8,12 @@ from products.views.admin import ProductAdminViewSet
 
 class ProductAdminViewSetTestCase(TestCase):
     fixtures = ['services.json']
+
+
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        super(TestCase, cls).setUpClass()
 
     def setUp(self):
         self.factory = APIRequestFactory()

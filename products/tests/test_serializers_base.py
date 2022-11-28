@@ -1,6 +1,4 @@
-from pprint import pprint
-
-from django.test import TestCase
+from django_tenants.test.cases import TenantTestCase as TestCase
 
 from products.models.product import Price
 from products.serializers.base import ProductSerializer
@@ -10,6 +8,11 @@ class ProductSerializerTestCase(TestCase):
     fixtures = ['services.json']
     serializer_class = ProductSerializer
     model_class = serializer_class.Meta.model
+
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        super(TestCase, cls).setUpClass()
 
     def setUp(self):
         self.product = self.model_class.objects.get(name='python')
