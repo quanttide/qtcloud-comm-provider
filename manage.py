@@ -5,7 +5,7 @@ import sys
 
 
 def main():
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'qtpay.settings')
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'qtcloud_payments.settings')
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:

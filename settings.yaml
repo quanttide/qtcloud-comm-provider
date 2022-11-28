@@ -1,8 +1,8 @@
 default:
   # --- Django ---
   # https://docs.djangoproject.com/en/4.0/ref/settings/
-  ROOT_URLCONF: qtpay.urls
-  WSGI_APPLICATION: qtpay.wsgi.application
+  ROOT_URLCONF: qtcloud_payments.urls
+  WSGI_APPLICATION: qtcloud_payments.wsgi.application
   ALLOWED_HOSTS:
     - '*'
   INTERNAL_IPS:
@@ -85,8 +85,6 @@ development:
       ENGINE: django.db.backends.sqlite3
       NAME: db.sqlite3
   CACHE_MIDDLEWARE_SECONDS: 0  # 关闭pre-view缓存
-  # OpenAPI文档路径
-  OPENAPI_DOC_PATH: api/_build/openapi.yml
 
 # ----- 测试环境 -----
 testing:
@@ -96,9 +94,9 @@ testing:
       ENGINE: django.db.backends.mysql
       HOST:
       PORT: 3306
-      USER: qtpay
+      USER: qtcloud_payments
       PASSWORD:
-      NAME: qtpay
+      NAME: qtcloud_payments
   CACHE_MIDDLEWARE_SECONDS: 0  # 关闭pre-view缓存
 
 # ----- 生产环境 -----
@@ -109,7 +107,7 @@ production:
       ENGINE: django.db.backends.mysql
       HOST:
       PORT: 3306
-      USER: qtpay
+      USER: qtcloud_payments
       PASSWORD:
-      NAME: qtpay
+      NAME: qtcloud_payments
   CACHE_MIDDLEWARE_SECONDS: 600  # pre-view缓存时长为10分钟

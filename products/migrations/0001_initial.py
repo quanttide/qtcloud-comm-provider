@@ -17,7 +17,7 @@ class Migration(migrations.Migration):
             name='Producer',
             fields=[
                 ('id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False, verbose_name='生产者ID')),
-                ('name', models.CharField(max_length=64, unique=True, verbose_name='生产者名称')),
+                ('name', models.CharField(max_length=128, unique=True, verbose_name='生产者名称')),
                 ('type', models.CharField(choices=[('goods_producer', '实物商品制造商'), ('service_provider', '服务提供者')], max_length=16, verbose_name='生产者类型')),
                 ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='创建时间')),
             ],
@@ -26,7 +26,7 @@ class Migration(migrations.Migration):
             name='Product',
             fields=[
                 ('id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False, verbose_name='商品ID')),
-                ('name', models.CharField(max_length=64, unique=True, verbose_name='商品名称')),
+                ('name', models.CharField(max_length=128, unique=True, verbose_name='商品名称')),
                 ('verbose_name', models.CharField(max_length=256, verbose_name='商品详细名称')),
                 ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='创建时间')),
                 ('updated_at', models.DateTimeField(auto_now=True, verbose_name='最近编辑时间')),

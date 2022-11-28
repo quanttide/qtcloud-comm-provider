@@ -23,7 +23,7 @@ class Product(models.Model):
     商品（也称产品）
     """
     id = models.UUIDField(primary_key=True, editable=False, default=uuid.uuid4, verbose_name='商品ID')
-    name = models.CharField(max_length=64, unique=True, verbose_name='商品名称')
+    name = models.CharField(max_length=128, unique=True, verbose_name='商品名称')
     verbose_name = models.CharField(max_length=256, verbose_name='商品详细名称')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='创建时间')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='最近编辑时间')

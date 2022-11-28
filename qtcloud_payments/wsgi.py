@@ -1,5 +1,5 @@
 """
-WSGI config for qtpay project.
+WSGI config for qtcloud_payments project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'qtpay.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'qtcloud_payments.settings')
 
 application = get_wsgi_application()

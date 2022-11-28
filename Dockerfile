@@ -27,4 +27,4 @@ EXPOSE 8000
 # 运行manage.py命令
 CMD python3 manage.py migrate \
     && python3 manage.py createcachetable \
-    && exec gunicorn qtpay.wsgi:application --bind 0.0.0.0:8000
+    && exec gunicorn qtcloud_payments.wsgi:application --bind 0.0.0.0:8000
